@@ -5,3 +5,16 @@ a{
 .login-container, .sign-up-container{
     margin-top:15%;
 }
+.profile-pic{
+    width:300px;
+    height:350px;
+    background-color:grey;
+    margin:0 auto;
+    margin-top:5%;
+    border: 1.5px solid black;
+    border-radius: 0%;
+}
+.profile-description-form{
+    margin-left:25%;
+    margin-right:25%;
+}
