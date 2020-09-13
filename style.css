@@ -1,0 +1,7 @@
+a{
+    text-decoration:none !important;
+    color:white !important;
+}
+.login-container, .sign-up-container{
+    margin-top:15%;
+}
