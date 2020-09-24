@@ -74,10 +74,10 @@
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-secondary active">
-                    <input type="radio" name="work_hire" id="option1" autocomplete="off" checked> Hire
+                    <input type="radio" name="work_hire" value="Hire" id="option1" autocomplete="off" checked> Hire
                   </label>
                   <label class="btn btn-secondary">
-                    <input type="radio" name="work_hire" id="option2" autocomplete="off"> Work
+                    <input type="radio" name="work_hire" value="Work" id="option2" autocomplete="off"> Work
                   </label>
                 </div>
                 

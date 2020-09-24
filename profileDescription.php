@@ -8,31 +8,44 @@
       //Database connection.
       include('config/db_connect.php');
 
+      //Retrive the last id from the users table to use as foriegn key later.
+      $idquery = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
+
+      //Make Query and get result.
+      $result = mysqli_query($conn, $idquery);
+
+      //Fetch query as associative array.
+      $lastrow = mysqli_fetch_assoc($result);
+
+      //Store foreign key into variable to insert into our table later.
+      $foreign_key = $lastrow['id'];
+
+      /************************************************************************************************ */
+      
       //Protection from SQLInjection.
       $hourly_pay = mysqli_real_escape_string($conn, $_POST['hourly_pay']);
       $website = mysqli_real_escape_string($conn, $_POST['website']);
       $bio = mysqli_real_escape_string($conn, $_POST['bio']);
       $services = mysqli_real_escape_string($conn, $_POST['services']);
-
       
 
       //Form Validation for empty input.
       if(empty($_POST['hourly_pay'])){
-        $errors['hourly_pay'] = 'Please enter a valid pay rate.';
+        $errors['hourly_pay'] = 'Please enter a valid hourly rate.';
       }
       if(empty($_POST['website'])){
-        $errors['website'] = 'Please enter a valid website.';
+        $errors['website'] = 'Please enter a valid domain name';
       }
       if(empty($_POST['bio'])){
-        $errors['bio'] = 'Please enter a valid bio.';
+        $errors['bio'] = 'Please enter a valid bio';
       }
       if(empty($_POST['services'])){
-        $errors['services'] = 'Please enter a valid services description.';
+        $errors['services'] = 'Please enter valid services';
       }
 
       if(!$empty){
         //SQL insert query
-        $sql = "INSERT INTO profile_info(hourly_pay, website, bio, services) VALUES('$hourly_pay', '$website', '$bio', '$services')";
+        $sql = "INSERT INTO profile_info(hourly_pay, website, bio, services, id) VALUES('$hourly_pay', '$website', '$bio', '$services', '$foreign_key')";
       
         //Insert value.
         mysqli_query($conn, $sql);
@@ -70,7 +83,7 @@
             <label for="exampleInputPassword1">Upload Resume</label>
             <input type="file" id="resumeInput" name="resumeInput"></input>
           </div>
-          <button type="submit" class="btn btn-primary mb-5">Finish</button>
+          <button type="submit" name="submit" class="btn btn-primary mb-5">Finish</button>
         </form>
 <?php
   include 'footer.php';

@@ -9,11 +9,19 @@
       include('config/db_connect.php');
 
       //Retrive the last id from the users table to use as foriegn key later.
-      $idquery = "SELECT id FROM users ORDER BY id LIMIT 1";
+      $idquery = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
 
-      //Figure out how to initiate the select query above.
+      //Make Query and get result.
+      $result = mysqli_query($conn, $idquery);
+
+      //Fetch query as associative array.
+      $lastrow = mysqli_fetch_assoc($result);
+
+      //Store foreign key into variable to insert into our table later.
+      $foreign_key = $lastrow['id'];
 
       /************************************************************************************************ */
+      
       //Protection from SQLInjection.
       $project_name = mysqli_real_escape_string($conn, $_POST['project_name']);
       $project_description = mysqli_real_escape_string($conn, $_POST['project_description']);
@@ -29,7 +37,7 @@
 
       if(!$empty){
         //SQL insert query
-        $sql = "INSERT INTO projects(project_name, project_description, id) VALUES('$project_name', '$project_description', '$idquery')";
+        $sql = "INSERT INTO projects(project_name, project_description, id) VALUES('$project_name', '$project_description', '$foreign_key')";
       
         //Insert value.
         mysqli_query($conn, $sql);
