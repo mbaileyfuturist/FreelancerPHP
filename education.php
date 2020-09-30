@@ -43,6 +43,7 @@
         mysqli_query($conn, $sql);
       }
      
+      header("Location: projects.php");
   }
 ?>
     <body>

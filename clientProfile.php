@@ -62,7 +62,7 @@
 
           <div class="mt-5 mb-5 d-flex justify-content-center">
             <button class="btn btn-primary mr-3" type="submit">Contact</button>
-            <a href="jobDescription.html"><button class="btn btn-primary" type="submit">Done</button></a>
+            <a href="jobDescription.php"><button class="btn btn-primary" type="submit">Done</button></a>
           </div>
 <?php
   include 'footer.php';

@@ -51,6 +51,7 @@
         mysqli_query($conn, $sql);
       }
      
+      header("Location: jobs.php");
   }
 ?>
     <body>

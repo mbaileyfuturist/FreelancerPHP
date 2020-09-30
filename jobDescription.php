@@ -21,7 +21,7 @@
 
           <div class="mt-5 d-flex justify-content-center">
             <button class="btn btn-primary mr-3" type="submit">Contact</button>
-            <a href="clientProfile.html" class="mr-3"><button class="btn btn-primary" type="submit">View Profile</button></a>
+            <a href="clientProfile.php" class="mr-3"><button class="btn btn-primary" type="submit">View Profile</button></a>
             <a href="jobs.php"><button class="btn btn-primary" type="submit">Done</button></a>
           </div>
 <?php

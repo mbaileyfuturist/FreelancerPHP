@@ -41,6 +41,8 @@
         //Insert value.
         mysqli_query($conn, $sql);
       }
+
+      header("Location: education.php");
      
   }
 ?>
