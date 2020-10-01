@@ -51,14 +51,17 @@
 
        <div class="mt-5 ml-5 mr-5 project-container">
         <form id="initialForm" action="projects.php" method="POST">
+
+          <div id="initial-input">
             <div class="form-group">
-              <label for="formGroupExampleInput">Project Name</label>
-              <input type="text" class="form-control" name="project_name" id="project_name" placeholder="Project Name">
-            </div>
-            <div class="form-group">
-              <label for="formGroupExampleInput2">Project Description</label>
-              <textarea type="text" class="form-control" name="project_description" id="project_description" placeholder="Project description..." rows="7"></textarea>
-            </div>
+                <label for="formGroupExampleInput">Project Name</label>
+                <input type="text" class="form-control" name="project_name" id="project_name" placeholder="Project Name">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">Project Description</label>
+                <textarea type="text" class="form-control" name="project_description" id="project_description" placeholder="Project description..." rows="7"></textarea>
+              </div>
+          </div>
 
             <button type="button" class="btn btn-primary" onclick="addProjects()">Add Project</button>
             <button type="submit" name="submit" class="btn btn-primary">Done</button>

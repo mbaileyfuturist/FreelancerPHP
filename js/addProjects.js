@@ -1,12 +1,8 @@
 function addProjects(){
     //Grab existing form.
-    var existingForm = document.getElementById('initialForm');
+    var initialInput = document.getElementById('initial-input');
 
-    //Create form for education.
-    var form = document.createElement('form');
-    form.className = "mt-5";
-
-    //Elements for school name.
+    //Elements for project name.
     var div1 = document.createElement('div');
     div1.className = 'form-group';
     var label1 = document.createElement('label');
@@ -34,14 +30,11 @@ function addProjects(){
     //Add text to label2
     label2.appendChild(text2);
 
-    //Append Elements to create new form.
-    form.appendChild(div1);
+    //Append Elements to extend form.
+    initialInput.appendChild(div1);
     div1.appendChild(label1);   
     div1.appendChild(input1);
     div1.appendChild(div2);
     div2.appendChild(label2);
     div2.appendChild(textarea);
-    
-    //Add new form to existing form.
-    existingForm.appendChild(form);
 }

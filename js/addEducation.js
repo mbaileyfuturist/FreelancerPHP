@@ -1,7 +1,7 @@
 function addEducation(){
 
     //Grab existing form.
-    var existingForm = document.getElementById('initialForm');
+    var initialInput = document.getElementById('initial-input');
 
     //Create form for education.
     var form = document.createElement('form');
@@ -35,13 +35,11 @@ function addEducation(){
     label2.appendChild(text2);
 
     //Append Elements to create new form.
-    form.appendChild(div1);
+    initialInput.appendChild(div1);
     div1.appendChild(label1);   
     div1.appendChild(input1);
     div1.appendChild(div2);
     div2.appendChild(label2);
     div2.appendChild(input2);
     
-    //Add new form to existing form.
-    existingForm.appendChild(form);
 }

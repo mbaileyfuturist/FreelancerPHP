@@ -52,14 +52,17 @@
 
         <div class="mt-5 ml-5 mr-5 project-container">
          <form id="initialForm" action="education.php" method="POST">
-             <div class="form-group">
-               <label for="formGroupExampleInput">School Name</label>
-               <input type="text" class="form-control" id="school_name" name="school_name" placeholder="School Name">
-             </div>
-             <div class="form-group">
-               <label for="formGroupExampleInput2">Degree Type</label>
-               <input type="text" class="form-control" id="degree_type" name="degree_type" placeholder="Degree name">
-             </div>
+         
+         <div id="initial-input">
+            <div class="form-group">
+                  <label for="formGroupExampleInput">School Name</label>
+                  <input type="text" class="form-control" id="school_name" name="school_name" placeholder="School Name">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Degree Type</label>
+                  <input type="text" class="form-control" id="degree_type" name="degree_type" placeholder="Degree name">
+                </div>
+         </div>
  
              <button type="button" class="btn btn-primary" onclick="addEducation()">Add Education</button>
              <button type="submit" name="submit" class="btn btn-primary">Done</button>

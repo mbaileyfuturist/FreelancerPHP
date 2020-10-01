@@ -5,7 +5,7 @@
     
         <div class="profile-pic mt-3">
             <h2 class="mt-5 text-center text-white">profile pic</h2>
-          </div>
+        </div>
     
           <h4 class="text-center mt-3">Job name</h4>
           <h4 class="text-center mt-2">Skill Set</h4>
