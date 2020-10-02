@@ -46,18 +46,6 @@
         
       }     
 ?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Company Info</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-    </head>
-
     <body>
 
         <div class="profile-pic mt-3">
@@ -104,10 +92,6 @@
             </form>
 
         </div>
-        
-    </body>
-</html>
-
 <?php
     include 'footer.php';
 ?>
