@@ -42,7 +42,11 @@
         mysqli_query($conn, $sql);
       }
 
-      header("Location: education.php");
+      if($work_hire == "Work"){
+        header("Location: education.php");
+      }else{
+        header("Location: companyInfo.php");
+      }
      
   }
 ?>
@@ -55,12 +59,13 @@
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">First name</label>
                     <input type="text" class="form-control" id="first_name" placeholder="First name" name="first_name">
-                  </div>
+                  </div>  
                   <div class="form-group col-md-6">
                     <label for="inputPassword4">Last name</label>
                     <input type="text" class="form-control" id="last_name" placeholder="Last name" name="last_name">
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label for="inputAddress">Email</label>
                   <input type="email" class="form-control" id="email" placeholder="example@email.com" name="email">
@@ -74,6 +79,7 @@
                   <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                 </div>
 
+                <p class="d-block">Are you looking for work, or are you here to hire?</p>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-secondary active">
                     <input type="radio" name="work_hire" value="Hire" id="option1" autocomplete="off" checked> Hire
@@ -86,7 +92,7 @@
                 <div class="form-group mt-3">
                   <label for="skills">Please choose a Skill:</label>
 
-                  <select name="skills" id="skillcods">
+                  <select name="skills" id="skills">
                   <option value="graphic">Graphic Design</option>
                   <option value="logo">Logo Design</option>
                   <option value="web">Web Design</option>

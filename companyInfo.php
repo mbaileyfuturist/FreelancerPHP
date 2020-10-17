@@ -5,47 +5,62 @@
 
   if(isset($_POST['submit'])){
       
-      //Database connection.
-      include('config/db_connect.php');
-      
-      //Protection from SQLInjection.
-      $company_name = mysqli_real_escape_string($conn, $_POST['company_name']);
-      $address = mysqli_real_escape_string($conn, $_POST['address']);
-      $city = mysqli_real_escape_string($conn, $_POST['city']);
-      $zip = mysqli_real_escape_string($conn, $_POST['zip']);
-      $mission_statement = mysqli_real_escape_string($conn, $_POST['mission_statement']);      
+    //Database connection.
+    include('config/db_connect.php');
 
-      //Form Validation for empty input.
-      if(empty($_POST['company_name'])){
-        $errors['company_name'] = 'Please enter a valid company name.';
-      }
-      if(empty($_POST['address'])){
-        $errors['address'] = 'Please enter a valid address.';
-      }
-      if(empty($_POST['city'])){
-        $errors['city'] = 'Please enter a valid city.';
-      }
-      if(empty($_POST['state'])){
-        $errors['state'] = 'Please enter a valid state.';
-      }
-      if(empty($_POST['zip'])){
-        $errors['zip'] = 'Please enter a valid zip.';
-      }
-      if(empty($_POST['mission_statement'])){
-        $errors['mission_statement'] = 'Please enter a valid mission statement.';
-      }
+    //Retrive the last id from the users table to use as foriegn key later.
+    $idquery = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
 
-      if(!$empty){
-        //SQL insert query
-        $sql = "INSERT INTO company_info(company_name, address, city, state, zip, mission_statement) VALUES('$company_name', '$address', '$city', '$zip', '$mission_statement')";
-      
-        //Insert value.
-        mysqli_query($conn, $sql);
+    //Make Query and get result.
+    $result = mysqli_query($conn, $idquery);
 
-        //Need to add header method to redirect to add jobs.
-        
-      }     
+    //Fetch query as associative array.
+    $lastrow = mysqli_fetch_assoc($result);
+
+    //Store foreign key into variable to insert into our table later.
+    $foreign_key = $lastrow['id'];
+    
+    //Protection from SQLInjection.
+    $company_name = mysqli_real_escape_string($conn, $_POST['company_name']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $state = mysqli_real_escape_string($conn, $_POST['state']);
+    $zip = mysqli_real_escape_string($conn, $_POST['zip']);
+    $mission_statement = mysqli_real_escape_string($conn, $_POST['mission_statement']);      
+
+    //Form Validation for empty input.
+    if(empty($_POST['company_name'])){
+      $errors['company_name'] = 'Please enter a valid company name.';
+    }
+    if(empty($_POST['address'])){
+      $errors['address'] = 'Please enter a valid address.';
+    }
+    if(empty($_POST['city'])){
+      $errors['city'] = 'Please enter a valid city.';
+    }
+    if(empty($_POST['state'])){
+      $errors['state'] = 'Please enter a valid state.';
+    }
+    if(empty($_POST['zip'])){
+      $errors['zip'] = 'Please enter a valid zip.';
+    }
+    if(empty($_POST['mission_statement'])){
+      $errors['mission_statement'] = 'Please enter a valid mission statement.';
+    }
+
+    if(!$empty){
+      //SQL insert query
+      $sql = "INSERT INTO company_info(company_name, address, city, state, zip, mission_statement, id) VALUES('$company_name', '$address', '$city', '$state', '$zip', '$mission_statement', '$foreign_key')";
+    
+      //Insert value.
+      mysqli_query($conn, $sql);
+    }
+    
+    //Need to add header method to redirect to add jobs.
+    header("Location: addJobs.php");
+  }
 ?>
+
     <body>
 
         <div class="profile-pic mt-3">
@@ -74,7 +89,9 @@
                     <label>State</label>
                     <select id="state" name="state" class="form-control">
                         <option selected>Choose...</option>
-                        <option>...</option>
+                        <option>AZ</option>
+                        <option>CA</option>
+                        <option>MD</option>
                     </select>
                     </div>
                     <div class="form-group col-md-2">
@@ -89,9 +106,10 @@
                     </div>
                 </div>
                 <button type="submit" name="submit" class="btn btn-primary">Done</button>
-            </form>
+            </form>   
 
-        </div>
+      </div>
+      
 <?php
-    include 'footer.php';
+  include 'footer.php';
 ?>

@@ -3,7 +3,11 @@
 
   $errors = array('hourly_pay' => '', 'website' => '', 'bio' => '', 'services' => '');
 
-  if(isset($_POST['submit'])){
+  if(isset($_POST['submit-1'])){
+    header('Location:projects.php');
+  }
+
+  if(isset($_POST['submit-2'])){
       
       //Database connection.
       include('config/db_connect.php');
@@ -84,7 +88,8 @@
             <label for="exampleInputPassword1">Upload Resume</label>
             <input type="file" id="resumeInput" name="resumeInput"></input>
           </div>
-          <button type="submit" name="submit" class="btn btn-primary mb-5">Finish</button>
+          <button type="submit" name="submit-1" class="btn btn-primary mb-5">back</button>
+          <button type="submit" name="submit-2" class="btn btn-primary mb-5">Finish</button>
         </form>
 <?php
   include 'footer.php';
