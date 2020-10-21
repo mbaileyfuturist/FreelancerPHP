@@ -1,5 +1,15 @@
 <?php
-  include 'header.php';
+    include 'header.php';
+
+    //Database connection.
+    include('config/db_connect.php');
+
+    //Retreive username and password from login using session variables.
+
+    //Grab the skill from the users database corresponding to the session username and password.
+    
+
+    //Select all users where their skill equals the skill of the client.
 ?>
     <body>
         
@@ -15,7 +25,7 @@
               <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Log Out</a>
+              <a class="nav-link" href="logout.php">Log Out</a>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">

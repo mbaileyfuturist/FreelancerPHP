@@ -55,7 +55,7 @@
         mysqli_query($conn, $sql);
       }
      
-      header("Location: jobs.php");
+      header("Location: FreelancersHomePage.php");
   }
 ?>
     <body>

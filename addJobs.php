@@ -55,7 +55,7 @@ $job_descriptions = array();
   }
 
   if(isset($_POST['submit-3'])){
-    header('Location: clientHomePage.php');
+    header('Location: ClientHomePage.php');
   }
 ?>
 

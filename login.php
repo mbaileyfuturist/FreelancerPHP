@@ -4,8 +4,6 @@
 
   include 'header.php';
 
-  $errors = array('email' => '', 'password' => '');
-
   if(isset($_POST['submit'])){
       
       //Database connection.
@@ -14,30 +12,30 @@
       //Protection from SQLInjection.
       $email = mysqli_real_escape_string($conn, $_POST['email']);
       $password = mysqli_real_escape_string($conn, $_POST['password']);
-     
-      //Form Validation for empty input.
-      if(empty($_POST['email'])){
-        $errors['email'] = 'Please enter a valid email address.';
-      }
-      if(empty($_POST['password'])){
-        $errors['password'] = 'Please enter a valid password.';
-      }
-     
-      //SQL query to grab all emails and passwords from the users table.
-      $login_query = "SELECT email, password FROM users";
 
-      //Make query and get result.
-      $result = mysqli_query($conn, $login_query);
+      //From the username and password, grab the corresponding work_hire
+      //and skill from the users table. 
+      $user_type_query = "SELECT email, user_name, password, work_hire, skill FROM users WHERE email = '$email' AND password = '$password'";
 
-      //Store these values in a dictionary using email = key and password = value;
-      $email_to_password = mysqli_fetch_assoc($result);
+      $user_type_result = mysqli_query($conn, $user_type_query);
 
-      //Use linear search to compare the value of email and password. If they match then move on to signup.php
-      foreach($email_to_password as $local_email => $local_password){
-        if(($email_to_password['email'] == $email) && ($email_to_password['password'] == $password)){
-          header("Location: jobs.php");
-        }
+      $work_hire_to_skill = mysqli_fetch_assoc($user_type_result);
+      
+      //Store the email, username, work_hire and skill into session variables.
+      $_SESSION['email'] = $work_hire_to_skill['email'];
+      $_SESSION['user_name'] = $work_hire_to_skill['user_name'];
+      $_SESSION['work_hire'] = $work_hire_to_skill['work_hire'];
+      $_SESSION['skill'] = $work_hire_to_skill['skill'];
+
+      //If work_hire = Work, then relocate to FreelancersHomePage.php
+      if($_SESSION['work_hire'] == 'Work'){
+        header('Location: FreelancersHomePage.php');
       }
+      //else-if work_hire = work, then relocate to ClientHomePage.php
+      elseif($_SESSION['work_hire'] == 'Hire'){
+        header('Location: ClientHomePage.php');
+      }
+
   }
 ?>
     <body>
