@@ -1,15 +1,50 @@
 <?php
+
+    session_start();
+
     include 'header.php';
 
     //Database connection.
     include('config/db_connect.php');
 
-    //Retreive username and password from login using session variables.
+    //Retreive the skill from the corresponding sessions variable.
+    $client_skill = $_SESSION['skill'];
 
-    //Grab the skill from the users database corresponding to the session username and password.
+    //Select all users where work_hire = Work and skill = skill of the client.
+    $freelancers_name_query = "SELECT id, first_name, last_name, skill FROM users WHERE work_hire = 'Work' AND skill = '$client_skill'";
+
+    $freelancers_name_result = mysqli_query($conn, $freelancers_name_query);
+
+    while($row = mysqli_fetch_assoc($freelancers_name_result)) {
+      $array[] = $row;
+    }
+
+    for($index = 0; $index < count($array); $index++){
+      $freelancer_id[] = json_encode($array[$index]['id']);
+      $freelancer_first_name[] = json_encode($array[$index]['first_name']);
+      $freelancer_last_name[] = json_encode($array[$index]['last_name']);
+      $freelancer_skill[] = json_encode($array[$index]['skill']); 
+    }
+
+    //LEFT OFF HERE!!!
+    /**************************************************************************************************************** */
+    //Select all users where work_hire = Work AND skill = skill of the client.
+    $freelancers_bio_query = "SELECT hourly_pay, bio FROM profile_info";
+      
     
+    $freelancers_bio_results = mysqli_query($conn, $freelancers_bio_query);
 
-    //Select all users where their skill equals the skill of the client.
+    while($row = mysqli_fetch_assoc($freelancers_bio_results)) {
+      $freelancers_bio_array[] = $row;
+    }
+
+    $freelancers_bio = array();
+    $freelancers_hourly_pay = array();
+    for($index = 0; $index < count($freelancers_bio_array); $index++){
+      $freelancers_bio[] = json_encode($freelancers_bio_array[$index]['bio']);
+      $freelancers_hourly_pay[] = json_encode($freelancers_bio_array[$index]['hourly_pay']);
+    }
+
 ?>
     <body>
         
@@ -45,30 +80,16 @@
               </tr>
             </thead>
             <tbody>
+
+            <?php for($index = 0; $index < count($array); $index++) {?>
               <tr>
-                <td class="text-center">First Last</td>
-                <td class="text-center" style="width:30%">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id soluta repellendus laboriosam facilis hic expedita corrupti tempora placeat perspiciatis! Dolorum consequatur, nulla minima aliquam tempore error hic! Nesciunt, officia at!</td>
-                <td class="text-center">Java</td>
-                <td class="text-center">$18</td>
+                <td class="text-center"><?php echo $freelancer_first_name[$index] . " " . $freelancer_last_name[$index];?></td>
+                <td class="text-center" style="width:30%"><?php echo $freelancers_bio[$index]; ?></td>
+                <td class="text-center"><?php echo $freelancer_skill[$index]; ?></td>
+                <td class="text-center"><?php echo $freelancers_hourly_pay[$index]; ?></td>
               </tr>
-              <tr>
-                <td class="text-center">First Last</td>
-                <td class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium pariatur minus ipsam, harum sint doloribus recusandae, error molestiae voluptates reprehenderit eum, ex iure? Reiciendis repellendus beatae eveniet delectus quia explicabo!</td>
-                <td class="text-center">PHP</td>
-                <td class="text-center">$22</td>
-              </tr>
-              <tr>
-                <td class="text-center">First Last</td>
-                <td class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias enim distinctio repellendus eligendi nisi officia dicta sapiente obcaecati corporis ut eveniet assumenda numquam mollitia, fuga ratione consequuntur id quia eius?</td>
-                <td class="text-center">C++</td>
-                <td class="text-center">$25</td>
-              </tr>
-              <tr>
-                <td class="text-center">First Last</td>
-                <td class="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat delectus laudantium ipsa dignissimos impedit enim at non veritatis ex libero deserunt incidunt, quasi repellat rerum nisi architecto id quis. Animi.</td>
-                <td class="text-center">AngularJS</td>
-                <td class="text-center">$30</td>
-              </tr>
+            <?php } ?>
+              
             </tbody>
           </table>
 <?php
