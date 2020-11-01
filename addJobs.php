@@ -1,38 +1,39 @@
 <?php
-include('header.php');
-$array = array();
-$job_names = array();
-$job_descriptions = array();
+  include('header.php');
+  $array = array();
+  $job_names = array();
+  $job_descriptions = array();
 
   if(isset($_POST['submit-1'])){
-    header('Location: companyInfo.php');
+      header('Location: companyInfo.php');
   } 
 
   if(isset($_POST['submit-2'])){
 
-  //Database connection.
-  include('config/db_connect.php');
+    //Database connection.
+    include('config/db_connect.php');
 
-  //Retrive the last id from the users table to use as foriegn key later.
-  $idquery = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
+    //Retrive the last id from the users table to use as foriegn key later.
+    $idquery = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
 
-  //Make Query and get result.
-  $result = mysqli_query($conn, $idquery);
+    //Make Query and get result.
+    $result = mysqli_query($conn, $idquery);
 
-  //Fetch query as associative array.
-  $lastrow = mysqli_fetch_assoc($result);
+    //Fetch query as associative array.
+    $lastrow = mysqli_fetch_assoc($result);
 
-  //Store foreign key into variable to insert into our table later.
-  $foreign_key = $lastrow['id'];
+    //Store foreign key into variable to insert into our table later.
+    $foreign_key = $lastrow['id'];
 
-  /*************************************************************************************************/
-  
-  //Grab POST values from form.
-  $job_name = mysqli_real_escape_string($conn, $_POST['job_name']);
-  $job_description = mysqli_real_escape_string($conn, $_POST['job_description']);
+    /*************************************************************************************************/
+    
+    //Grab POST values from form.
+    $job_name = mysqli_real_escape_string($conn, $_POST['job_name']);
+    $job_description = mysqli_real_escape_string($conn, $_POST['job_description']);
+    $job_hourly_rate = mysqli_real_escape_string($conn, $_POST['hourly_rate']);
 
     //SQL insert query
-    $sql = "INSERT INTO jobs(job_name, job_description, id) VALUES('$job_name', '$job_description', '$foreign_key')";
+    $sql = "INSERT INTO jobs(job_name, job_description, job_hourly_rate, id) VALUES('$job_name', '$job_description', '$job_hourly_rate', '$foreign_key')";
   
     //Insert values into table.
     mysqli_query($conn, $sql);
@@ -50,6 +51,7 @@ $job_descriptions = array();
     for($index = 0; $index < count($array); $index++){
       $job_names[] = json_encode($array[$index]['job_name']);
       $job_descriptions[] = json_encode($array[$index]['job_description']);
+      $job_hourly_rates[] = json_encode($array[$index]['job_hourly_rate']);
     }
 
   }
@@ -74,6 +76,10 @@ $job_descriptions = array();
                 <label>Job Description</label>
                 <textarea type="text" class="form-control" name="job_description" id="job_description" placeholder="job description..." rows="7"></textarea>
             </div>
+            <div class="form-group">
+                <label>Hourly Rate</label>
+                <input type="text" class="form-control" name="hourly_rate" id="hourly_rate" placeholder="hourly rate"></input>
+            </div>
         </div>
 
             <button type="submit" name="submit-1" class="btn btn-primary">Back</button>
@@ -89,6 +95,7 @@ $job_descriptions = array();
                 <th scope="col" class="text-center">#</th>
                 <th scope="col" class="text-center">Job</th>
                 <th scope="col" class="text-center">Description</th>
+                <th scope="col" class="text-center">Job Hourly Rate</th>
               </tr>
             </thead>
             <tbody>
@@ -98,6 +105,7 @@ $job_descriptions = array();
                 <th scope="row" class="text-center"><?php $index ?></th>
                 <td class="text-center"><?php echo $job_names[$index]?></td>
                 <td class="text-center"><?php echo $job_descriptions[$index]?></td>
+                <td class="text-center"><?php echo $job_hourly_rates[$index]?></td>
               </tr>
             <?php } ?>
 

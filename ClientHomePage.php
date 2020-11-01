@@ -26,7 +26,6 @@
       $freelancer_skill[] = json_encode($array[$index]['skill']); 
     }
 
-    //LEFT OFF HERE!!!
     /**************************************************************************************************************** */
     //Select all users where work_hire = Work AND skill = skill of the client.
     $freelancers_bio_query = "SELECT hourly_pay, bio FROM profile_info";
@@ -86,7 +85,7 @@
                 <td class="text-center"><?php echo $freelancer_first_name[$index] . " " . $freelancer_last_name[$index];?></td>
                 <td class="text-center" style="width:30%"><?php echo $freelancers_bio[$index]; ?></td>
                 <td class="text-center"><?php echo $freelancer_skill[$index]; ?></td>
-                <td class="text-center"><?php echo $freelancers_hourly_pay[$index]; ?></td>
+                <td class="text-center"><?php echo "$" . $freelancers_hourly_pay[$index]; ?></td>
               </tr>
             <?php } ?>
               

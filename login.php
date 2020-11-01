@@ -15,13 +15,14 @@
 
       //From the username and password, grab the corresponding work_hire
       //and skill from the users table. 
-      $user_type_query = "SELECT email, user_name, password, work_hire, skill FROM users WHERE email = '$email' AND password = '$password'";
+      $user_type_query = "SELECT id, email, user_name, password, work_hire, skill FROM users WHERE email = '$email' AND password = '$password'";
 
       $user_type_result = mysqli_query($conn, $user_type_query);
 
       $work_hire_to_skill = mysqli_fetch_assoc($user_type_result);
       
       //Store the email, username, work_hire and skill into session variables.
+      $_SESSION['id'] = $work_hire_to_skill['id'];
       $_SESSION['email'] = $work_hire_to_skill['email'];
       $_SESSION['user_name'] = $work_hire_to_skill['user_name'];
       $_SESSION['work_hire'] = $work_hire_to_skill['work_hire'];
