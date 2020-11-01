@@ -24,6 +24,12 @@
       $freelancer_first_name[] = json_encode($array[$index]['first_name']);
       $freelancer_last_name[] = json_encode($array[$index]['last_name']);
       $freelancer_skill[] = json_encode($array[$index]['skill']); 
+
+      //Remove begining and end quotes.
+      $_freelancer_id[] = trim($freelancer_id[$index], '"');
+      $_freelancer_first_name[] = trim($freelancer_first_name[$index], '"');
+      $_freelancer_last_name[] = trim($freelancer_last_name[$index], '"');
+      $_freelancer_skill[] = trim($freelancer_skill[$index], '"');
     }
 
     /**************************************************************************************************************** */
@@ -42,6 +48,9 @@
     for($index = 0; $index < count($freelancers_bio_array); $index++){
       $freelancers_bio[] = json_encode($freelancers_bio_array[$index]['bio']);
       $freelancers_hourly_pay[] = json_encode($freelancers_bio_array[$index]['hourly_pay']);
+
+      $_freelancers_bio[] = trim($freelancers_bio[$index], '"');
+      $_freelancers_hourly_pay[] = trim($freelancers_hourly_pay[$index], '"');
     }
 
 ?>
@@ -82,10 +91,10 @@
 
             <?php for($index = 0; $index < count($array); $index++) {?>
               <tr>
-                <td class="text-center"><?php echo $freelancer_first_name[$index] . " " . $freelancer_last_name[$index];?></td>
-                <td class="text-center" style="width:30%"><?php echo $freelancers_bio[$index]; ?></td>
-                <td class="text-center"><?php echo $freelancer_skill[$index]; ?></td>
-                <td class="text-center"><?php echo "$" . $freelancers_hourly_pay[$index]; ?></td>
+                <td class="text-center"><?php echo $_freelancer_first_name[$index] . " " . $_freelancer_last_name[$index];?></td>
+                <td class="text-center" style="width:30%"><?php echo $_freelancers_bio[$index]; ?></td>
+                <td class="text-center"><?php echo $_freelancer_skill[$index]; ?></td>
+                <td class="text-center"><?php echo "$" . $_freelancers_hourly_pay[$index]; ?></td>
               </tr>
             <?php } ?>
               
