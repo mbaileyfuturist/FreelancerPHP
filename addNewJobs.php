@@ -5,10 +5,6 @@
   $job_descriptions = array();
 
   if(isset($_POST['submit-1'])){
-      header('Location: companyInfo.php');
-  } 
-
-  if(isset($_POST['submit-2'])){
 
     //Database connection.
     include('config/db_connect.php');
@@ -60,8 +56,8 @@
 
   }
 
-  if(isset($_POST['submit-3'])){
-    header('Location: ClientHomePage.php');
+  if(isset($_POST['submit-2'])){
+    header('Location: clientProfile.php');
   }
 ?>
 
@@ -86,9 +82,8 @@
             </div>
         </div>
 
-            <button type="submit" name="submit-1" class="btn btn-primary">Back</button>
-            <button type="submit" name="submit-2" class="btn btn-primary">Add Job</button>
-            <button type="submit" name="submit-3" class="btn btn-primary">Finish</button>
+            <button type="submit" name="submit-1" class="btn btn-primary">Add Job</button>
+            <button type="submit" name="submit-2" class="btn btn-primary">Finish</button>
         </form>
         </div>   
 
