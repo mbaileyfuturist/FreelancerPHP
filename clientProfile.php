@@ -24,9 +24,6 @@
   $company_address = $company_info_associative_array['address'];
   $mission_statement = $company_info_associative_array['mission_statement'];
 
-  //We will use this in jobDescription.php
-  $_SESSION['mission_statement'] = $mission_statement;
-
   /**************************************************************************************************************/
 
   $company_jobs_query = "SELECT job_name, job_description, job_hourly_rate FROM jobs WHERE id = '$foreign_key'";
@@ -37,14 +34,22 @@
     $jobs_array[] = $company_jobs_row;
   }
 
+  $_job_description = array();
   //Store job_name and job_hourly_rate intoand array.
   for($index = 0; $index < count($jobs_array); $index++){
     $job_name[] = json_encode($jobs_array[$index]['job_name']);
     $job_hourly_rate[] = json_encode($jobs_array[$index]['job_hourly_rate']);
+    $job_description[] = json_encode($jobs_array[$index]['job_description']);
 
     $_job_name[] = trim($job_name[$index], '"');
     $_job_hourly_rate[] = trim($job_hourly_rate[$index], '"');
+    $_job_description[] = trim($job_description[$index], '"');
   }
+
+  //We will use this in jobDescription.php
+  $_SESSION['job_name'] = $_job_name;
+  $_SESSION['job_hourly_rate'] = $_job_hourly_rate;
+  $_SESSION['job_description'] = $_job_description;
 
   if(isset($_POST['submit-1'])){
     //header('Location: editActiveProfile.php');
@@ -93,12 +98,33 @@
                   <td class="text-center"><?php echo $_job_name[$index]; ?></td>
                   <td class="text-center"><?php echo $skill; ?></td>
                   <td class="text-center"><?php echo $_job_hourly_rate[$index]; ?></td>
-                  <td class="text-center"><a href="jobDescription.php"><button class="btn btn-success">Select</button></a></td>
+                  <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
                 </tr>
             <?php }?>
              
             </tbody>
           </table>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="job-description"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
 
           <form action="clientProfile.php" method="POST">
             <div class="mt-5 mb-5 d-flex justify-content-center">
@@ -108,6 +134,52 @@
               <button class="btn btn-primary" name="submit-4" type="submit">Done</button>
             </div>
           </form>
+
+          <script type="text/javascript">
+
+              //Get the number of jobs.
+              var numberOfJobs = "<?php echo count($jobs_array); ?>";
+
+              //Setting job descriptions from php array to js array for later use.
+              var jobDescriptions = <?php echo json_encode($_job_description); ?>;
+
+              var selectBtnElements = []
+              //Array to store the ID's of the job description.
+              var selectButtonIDs = [];
+
+              for(var index = 0; index < numberOfJobs; index++){
+                
+                //Grab the select button element.
+                selectBtnElements.push(document.getElementById('select-' + index));
+
+                //Grab the ID's of the select button elements. 
+                selectBtnID = selectBtnElements[index].getAttribute("id");
+
+                //Add each ID to the array.
+                selectButtonIDs.push(selectBtnID);
+                
+              }
+
+              //Grab ID of selected button.
+              var selectID;
+              $("button").click(function() {
+
+                selectID = this.id;
+
+                //Grab the last character of the ID.
+                var lastCharacter = selectID.slice(-1);
+
+                //Grab the job description at lastCharacter.
+                var jobDescription = jobDescriptions[lastCharacter];
+
+                //Store the job description into the p tags within the modal-body div.
+                var jobDescriptionTags = document.getElementById("job-description");
+                
+                jobDescriptionTags.innerHTML = jobDescription;
+              });
+
+        </script>
+
 <?php
   include 'footer.php';
 ?>
