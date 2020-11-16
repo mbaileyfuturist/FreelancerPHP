@@ -56,10 +56,10 @@
 
           <form action="freelancerProfile.php" method="POST">
             <div class="mt-5 d-flex justify-content-center">
-              <button class="btn btn-primary mr-3" type="submit">Contact</button>
               <button class="btn btn-primary" type="submit" name="submit-1">Done</button>
             </div>
           </form>
+
 <?php
   include 'footer.php';
 ?>

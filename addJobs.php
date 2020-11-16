@@ -117,7 +117,6 @@
           </table>
         </div>
 
-    <script src="js/addJob.js"></script>
 <?php
     include 'footer.php'
 ?>

@@ -56,7 +56,7 @@
   }
 
   if(isset($_POST['submit-2'])){
-    header('Location: addNewJobs.php');
+    header('Location: newJobs.php');
   }
 
   if(isset($_POST['submit-3'])){
@@ -126,14 +126,14 @@
             </div>
           </div>
 
-          <form action="clientProfile.php" method="POST">
+          <form class="d-inline" action="clientProfile.php" method="POST">
             <div class="mt-5 mb-5 d-flex justify-content-center">
               <button class="btn btn-primary mr-3" name="submit-1" type="submit">Edit Profile</button>
               <button class="btn btn-primary mr-3" name="submit-2" type="submit">New Job</button>
-              <button class="btn btn-primary mr-3" name="submit-3" type="submit">Contact</button>
               <button class="btn btn-primary" name="submit-4" type="submit">Done</button>
             </div>
           </form>
+
 
           <script type="text/javascript">
 
