@@ -34,8 +34,12 @@
   $services = $freelancer_info_associtaive_array['services'];
   
   if(isset($_POST['submit-1'])){
+    header('Location: editActiveFreelancingProfile.php');
+  }
+  if(isset($_POST['submit-2'])){
     header('Location: FreelancersHomePage.php');
   }
+
 ?>
     <body>
     
@@ -56,7 +60,8 @@
 
           <form action="freelancerProfile.php" method="POST">
             <div class="mt-5 d-flex justify-content-center">
-              <button class="btn btn-primary" type="submit" name="submit-1">Done</button>
+              <button class="btn btn-primary mr-3" name="submit-1" type="submit">Edit Profile</button>
+              <button class="btn btn-primary" name="submit-2" type="submit">Done</button>
             </div>
           </form>
 

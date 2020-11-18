@@ -1,25 +1,48 @@
 <?php
-    include 'header.php'
+
+  include 'header.php';
+
+  session_start();
+
+  $user_id = $_SESSION['id'];
+
+  if(isset($_POST['submit-1'])){
+    header("Location: clientProfile.php");
+  }
+
+  if(isset($_POST['submit-2'])){
+      
+    //Database connection.
+    include('config/db_connect.php');
+    
+    //Protection from SQLInjection.
+    $company_name = mysqli_real_escape_string($conn, $_POST['company_name']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $state = mysqli_real_escape_string($conn, $_POST['state']);
+    $zip = mysqli_real_escape_string($conn, $_POST['zip']);
+    $mission_statement = mysqli_real_escape_string($conn, $_POST['mission_statement']);      
+
+    //SQL update query
+    $sql = "UPDATE company_info SET company_name = '$company_name', address = '$address', city = '$city', state = '$state', zip = '$zip', mission_statement = '$mission_statement' WHERE id = '$user_id'";
+    
+    //Insert value.
+    mysqli_query($conn, $sql);
+    
+    
+    header("Location: clientProfile.php");
+  }
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
+
     <body>
-        
-    <div class="profile-pic mt-3">
+
+        <div class="profile-pic mt-3">
             <h2 class="mt-5 text-center text-white">profile pic</h2>
         </div>
 
         <div class="d-flex justify-content-center sign-up-container mt-5">
 
-            <form action="companyInfo.php" method="POST">
+            <form action="editActiveClientProfile.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label>Company Name</label>
@@ -55,13 +78,12 @@
                     <textarea type="text" class="form-control" id="mission_statement" name="mission_statement" rows="7" style="width:100%;" placeholder="Mission Statement"></textarea>
                     </div>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary">Done</button>
+                <button type="submit" name="submit-1" class="btn btn-primary">Cancel</button>
+                <button type="submit" name="submit-2" class="btn btn-primary">Update</button>
             </form>   
 
       </div>
       
-    </body>
-</html>
 <?php
-    include 'footer.php'
+  include 'footer.php';
 ?>

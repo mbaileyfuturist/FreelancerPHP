@@ -52,7 +52,7 @@
   $_SESSION['job_description'] = $_job_description;
 
   if(isset($_POST['submit-1'])){
-    //header('Location: editActiveProfile.php');
+    header('Location: editActiveClientProfile.php');
   }
 
   if(isset($_POST['submit-2'])){
