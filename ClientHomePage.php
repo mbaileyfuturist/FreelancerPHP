@@ -33,14 +33,15 @@
     }
 
     /**************************************************************************************************************** */
-    //Select all users where work_hire = Work AND skill = skill of the client.
-    $freelancers_bio_query = "SELECT hourly_pay, bio FROM profile_info";
-      
-    
-    $freelancers_bio_results = mysqli_query($conn, $freelancers_bio_query);
+    //Select freelancers hourly_pay, bio, and services based on the freelancer_id array.
+    for($index = 0; $index < count($array); $index++){
+      $freelancers_bio_query = "SELECT hourly_pay, bio, services FROM profile_info WHERE id = '$_freelancer_id[$index]'";
 
-    while($row = mysqli_fetch_assoc($freelancers_bio_results)) {
-      $freelancers_bio_array[] = $row;
+      $freelancers_bio_results = mysqli_query($conn, $freelancers_bio_query);
+
+      while($row = mysqli_fetch_assoc($freelancers_bio_results)) {
+        $freelancers_bio_array[] = $row;
+      }
     }
 
     $freelancers_bio = array();
@@ -48,9 +49,11 @@
     for($index = 0; $index < count($freelancers_bio_array); $index++){
       $freelancers_bio[] = json_encode($freelancers_bio_array[$index]['bio']);
       $freelancers_hourly_pay[] = json_encode($freelancers_bio_array[$index]['hourly_pay']);
+      $freelancers_services[] = json_encode($freelancers_bio_array[$index]['services']);
 
       $_freelancers_bio[] = trim($freelancers_bio[$index], '"');
       $_freelancers_hourly_pay[] = trim($freelancers_hourly_pay[$index], '"');
+      $_freelancers_services[] = trim($freelancers_services[$index], '"');
     }
 
 ?>
@@ -83,8 +86,8 @@
               <tr>
                 <th scope="col" class="text-center">Full Name</th>
                 <th scope="col" class="text-center">Bio</th>
-                <th scope="col" class="text-center">Skill</th>
                 <th scope="col" class="text-center">Hourly Rate</th>
+                <th scope="col" class="text-center">View</th>
               </tr>
             </thead>
             <tbody>
@@ -93,13 +96,83 @@
               <tr>
                 <td class="text-center"><?php echo $_freelancer_first_name[$index] . " " . $_freelancer_last_name[$index];?></td>
                 <td class="text-center" style="width:30%"><?php echo $_freelancers_bio[$index]; ?></td>
-                <td class="text-center"><?php echo $_freelancer_skill[$index]; ?></td>
-                <td class="text-center"><?php echo "$" . $_freelancers_hourly_pay[$index]; ?></td>
+                <td class="text-center"><?php echo '$' . $_freelancers_hourly_pay[$index]; ?></td>
+                <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
               </tr>
             <?php } ?>
               
             </tbody>
           </table>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="service-description"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <script type="text/javascript">
+
+              //Get the number of jobs.
+              var numberOfServices = "<?php echo count($array); ?>";
+
+              console.log(numberOfServices);
+
+              //Setting service descriptions from php array to js array for later use.
+              var serviceDescriptions = <?php echo json_encode($_freelancers_services); ?>;
+
+              var selectBtnElements = [];
+
+              //Array to store the ID's of the service description.
+              var selectButtonIDs = [];
+
+              for(var index = 0; index < numberOfServices; index++){
+                
+                //Grab the select button element.
+                selectBtnElements.push(document.getElementById('select-' + index));
+
+                //Grab the ID's of the select button elements. 
+                selectBtnID = selectBtnElements[index].getAttribute("id");
+
+                //Add each ID to the array.
+                selectButtonIDs.push(selectBtnID);
+                
+              }
+
+              //Grab ID of selected button.
+              var selectID;
+              $("button").click(function() {
+
+                selectID = this.id;
+
+                //Grab the last character of the ID.
+                var lastCharacter = selectID.slice(-1);
+
+                //Grab the job description at lastCharacter.
+                var serviceDescription = serviceDescriptions[lastCharacter];
+
+                //Store the job description into the p tags within the modal-body div.
+                var serviceDescriptionTags = document.getElementById("service-description");
+                
+                serviceDescriptionTags.innerHTML = serviceDescription;
+              });
+
+        </script>
+
 <?php
   include 'footer.php';
 ?>

@@ -121,11 +121,11 @@
               if($_company_id[$index2] == $job_id){
                 $company_name = $_company_name[$index2]; ?>
                 <tr>
-                <td class="text-center"><?php echo $company_name; ?></td>
-                <td class="text-center"><?php echo $_job_names[$index]; ?></td>
-                <td class="text-center"><?php echo $client_skill; ?></td>
-                <td class="text-center"><?php echo $_job_hourly_rates[$index]; ?></td>
-                <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
+                  <td class="text-center"><?php echo $company_name; ?></td>
+                  <td class="text-center"><?php echo $_job_names[$index]; ?></td>
+                  <td class="text-center"><?php echo $client_skill; ?></td>
+                  <td class="text-center"><?php echo '$' . $_job_hourly_rates[$index]; ?></td>
+                  <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
                 </tr>       
           <?php }
               }
@@ -162,7 +162,8 @@
               //Setting job descriptions from php array to js array for later use.
               var jobDescriptions = <?php echo json_encode($_job_descriptions); ?>;
 
-              var selectBtnElements = []
+              var selectBtnElements = [];
+              
               //Array to store the ID's of the job description.
               var selectButtonIDs = [];
 
