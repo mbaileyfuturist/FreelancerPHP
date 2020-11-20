@@ -203,8 +203,8 @@
                 var hourlyRateTag = document.getElementById("hourly-rate");
 
                 fullNameTag.innerHTML = firstName + " " + lastName;
-                serviceDescriptionTags.innerHTML = serviceDescription;
-                bioTag.innerHTML = freelancersBio;
+                serviceDescriptionTags.innerHTML = "Services: " + serviceDescription;
+                bioTag.innerHTML = "Bio: " + freelancersBio;
                 hourlyRateTag.innerHTML = "$" + hourlyRate;
               });
 
