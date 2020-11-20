@@ -57,7 +57,7 @@
   $companies_array = array();
   for($index = 0; $index < count($_client_id); $index++){
     //Grab company_name from company_info where id = $job_id.
-    $company_query = "SELECT company_name, id FROM company_info where id = '$_client_id[$index]'";
+    $company_query = "SELECT company_name, mission_statement, id FROM company_info where id = '$_client_id[$index]'";
 
     $result3 = mysqli_query($conn, $company_query);
 
@@ -71,9 +71,12 @@
     $company_name[] = json_encode($companies_array[$index]['company_name']);
     $_company_name[] = trim($company_name[$index],'"');
 
+    $mission_statement[] = json_encode($companies_array[$index]['mission_statement']);
+    $_mission_statement[] = trim($mission_statement[$index], '"');
+
     $company_id[] = json_encode($companies_array[$index]['id']);
     $_company_id[] = trim($company_id[$index], '"');
-    //echo $_company_name[$index] . "<br>";
+
   }
 
 ?>
@@ -114,12 +117,25 @@
             </thead>
             <tbody>
             <?php 
-
+            
+            $table_array = array();
             for($index = 0; $index < count($job_names); $index++){
+            
+            //Iterate through the job ID's and temporarily grab each ID during each iteration.
             $job_id = $_job_id[$index];
+
+            //Iterate through the company ID's.
             for($index2 = 0; $index2 < count($_company_id); $index2++){
+
+              //If the company ID == the temporary job ID, then the two are related via foreign key.
               if($_company_id[$index2] == $job_id){
-                $company_name = $_company_name[$index2]; ?>
+
+                //Now we can grab the company name for display.
+                $company_name = $_company_name[$index2]; 
+                $company_mission = $_mission_statement[$index2];
+                $company_table_array[] = $company_name;
+                $mission_table_array[] = $company_mission;
+                ?>
                 <tr>
                   <td class="text-center"><?php echo $company_name; ?></td>
                   <td class="text-center"><?php echo $_job_names[$index]; ?></td>
@@ -141,13 +157,15 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Modal Header</h4>
+                  <h3 class="modal-title" id="company-name"></h3>
                 </div>
                 <div class="modal-body">
+                  <p id="job-name"></p>
                   <p id="job-description"></p>
+                  <p id="company-mission"></p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <h4 id="hourly-rate"></h4>
                 </div>
               </div>
               
@@ -157,10 +175,28 @@
           <script type="text/javascript">
 
               //Get the number of jobs.
-              var numberOfJobs = "<?php echo count($jobs_array); ?>";
+              var numberOfJobs = <?php echo count($jobs_array); ?>;
 
-              //Setting job descriptions from php array to js array for later use.
+              //Get the job names.
+              var jobNames = <?php echo json_encode($_job_names); ?>;
+
+              //Get the job ID's
+              var jobIDs = <?php echo json_encode($_job_id); ?>;
+
+              //Get the company ID's
+              var companyIDs = <?php echo json_encode($_company_id); ?>;
+
+              //Get the job descriptions.
               var jobDescriptions = <?php echo json_encode($_job_descriptions); ?>;
+
+              //Get the company names.
+              var companyNames = <?php echo json_encode($company_table_array); ?>;
+
+              //Get the company mission statements.
+              var companyMissions = <?php echo json_encode($mission_table_array); ?>;
+
+              //Get the hourly rates for each job.
+              var hourlyRates = <?php echo json_encode($_job_hourly_rates); ?>;
 
               var selectBtnElements = [];
               
@@ -189,13 +225,42 @@
                 //Grab the last character of the ID.
                 var lastCharacter = selectID.slice(-1);
 
+                //Grab the job name at last character.
+                jobName = jobNames[lastCharacter];
+
                 //Grab the job description at lastCharacter.
                 var jobDescription = jobDescriptions[lastCharacter];
 
-                //Store the job description into the p tags within the modal-body div.
-                var jobDescriptionTags = document.getElementById("job-description");
+                //Grab the hourly rate at the last character.
+                var hourlyRate = hourlyRates[lastCharacter];
+
+                //Grab the company name at the last character.
+                var companyName = companyNames[lastCharacter];
+
+                //Grab the company mission statement at the last character.
+                var missionStatement = companyMissions[lastCharacter];
+
+                //Grab the element with ID of company-name.
+                var companyNameTag = document.getElementById("company-name");
+
+                //Grab the element with ID of job-name.
+                var jobNameTag = document.getElementById("job-name");
+
+                //Grab the element with ID of job-description.
+                var jobDescriptionTag = document.getElementById("job-description");
                 
-                jobDescriptionTags.innerHTML = jobDescription;
+                //Grab the element with ID of company-mission.
+                var companyMissionTag = document.getElementById("company-mission");
+                
+                //Grab the element with ID of hourly-rate.
+                var hourlyRateTag = document.getElementById("hourly-rate");
+
+                companyNameTag.innerHTML = companyName;
+                jobNameTag.innerHTML = jobName;
+                jobDescriptionTag.innerHTML = "Job Description: " + jobDescription;
+                companyMissionTag.innerHTML = "Company Mission: " + missionStatement;
+                hourlyRateTag.innerHTML = "Pay: $" + hourlyRate + "/hr";
+
               });
 
         </script>
