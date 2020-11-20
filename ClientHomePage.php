@@ -112,13 +112,14 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Modal Header</h4>
+                  <h4 id="full-name"></h4>
                 </div>
                 <div class="modal-body">
+                  <p id="bio"></p>
                   <p id="service-description"></p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <h4 id="hourly-rate"></h4>
                 </div>
               </div>
               
@@ -132,8 +133,20 @@
 
               console.log(numberOfServices);
 
-              //Setting service descriptions from php array to js array for later use.
+              //Grab the freelancers first name.
+              var firstNames = <?php echo json_encode($_freelancer_first_name); ?>;
+
+              //Grab the freelancers last name.
+              var lastNames = <?php echo json_encode($_freelancer_last_name); ?>;
+
+              //Grab the freelancers bios.
+              var freelancersBios = <?php echo json_encode($_freelancers_bio); ?>;
+
+              //Grab the services the freelancers offers.
               var serviceDescriptions = <?php echo json_encode($_freelancers_services); ?>;
+
+              //Grab the hourly rates the freelancers charge.
+              var hourlyRates = <?php echo json_encode($_freelancers_hourly_pay); ?>;
 
               var selectBtnElements = [];
 
@@ -165,10 +178,34 @@
                 //Grab the job description at lastCharacter.
                 var serviceDescription = serviceDescriptions[lastCharacter];
 
-                //Store the job description into the p tags within the modal-body div.
+                //Grab the freelancers bio at last character.
+                var freelancersBio = freelancersBios[lastCharacter];
+
+                //Grab the first name at last character.
+                var firstName = firstNames[lastCharacter];
+
+                //Grab the last name at last character.
+                var lastName = lastNames[lastCharacter];
+
+                //Grab the hourly rate at the last character.
+                var hourlyRate = hourlyRates[lastCharacter];
+
+                //Grab the element with the tag name full-name. 
+                var fullNameTag = document.getElementById("full-name");
+
+                //Grab the element with the tag name service-description.
                 var serviceDescriptionTags = document.getElementById("service-description");
                 
+                //Grab the element with the tag name bio.
+                var bioTag = document.getElementById("bio");
+
+                //Grab the element with the tag name hourly-rate.
+                var hourlyRateTag = document.getElementById("hourly-rate");
+
+                fullNameTag.innerHTML = firstName + " " + lastName;
                 serviceDescriptionTags.innerHTML = serviceDescription;
+                bioTag.innerHTML = freelancersBio;
+                hourlyRateTag.innerHTML = "$" + hourlyRate;
               });
 
         </script>
