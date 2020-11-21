@@ -40,15 +40,21 @@
   }
 ?>
     <body>
-        
+
+    <div class="login-left bg-primary">
+      <p id="login-title" class="mt-5 ml-5 mb-0">The Freelancer</p>
+      <p id="login-subtitle" class="ml-5 mt-0">The worlds number one online destination to find work on the go!</p>
+    <div>
+
         <div class="d-flex justify-content-center login-container">
-            <form action="login.php" method="POST">
+          <div class="card" style="width: 25rem; height:20rem; margin-top:5rem;">
+            <div class="card-body">
+              <h5 class="card-title login-card-title text-dark">User Login</h5>
+              <form action="login.php" method="POST">
                 <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" class="form-control" id = "email" name = "email" placeholder="Enter email">
+                  <input type="email" class="form-control" id = "email" name = "email" placeholder="example@email.com">
                 </div>
                 <div class="form-group">
-                  <label>Password</label>
                   <input type="password" class="form-control" id = "password" name = "password" placeholder="Password">
                 </div>
                 <div class="form-check">
@@ -56,9 +62,24 @@
                   <label class="form-check-label" for="exampleCheck1">Stay signed in</label>
                 </div>
                 <small id="emailHelp" class="form-text text-muted">Dont have an account? <a href="signup.php" class="text-info">sign up here.</a></small>
-                <button type="submit" name="submit" class="btn btn-primary mt-3">Log in</button>
+                <button type="submit" name="submit" class="btn btn-primary mt-3 login-btn">Log in</button>
               </form>
+            </div>
+          </div>
         </div>
+
+    <div>
+
+      <div id="cube1" class="cube bg-primary"></div>
+      <div id="cube2" class="cube bg-primary"></div>
+      <div id="cube3" class="cube bg-primary"></div>
+      <div id="cube4" class="cube bg-primary"></div>
+      <div id="cube5" class="cube bg-primary"></div>
+      <div id="cube6" class="cube bg-primary"></div>
+      <div id="cube7" class="cube bg-primary"></div>
+      
+      <p id="signature"><strong><a class="text-dark" href="https://www.mbaileyfuturist.dev" target="_BLANK">Created by: mbaileyfuturist</a></strong></p>
+    </div>
 <?php
   include 'footer.php';
 ?>
