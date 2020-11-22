@@ -50,6 +50,9 @@
           for($index = 0; $index < count($array); $index++){
             $project_names[] = json_encode($array[$index]['project_name']);
             $project_descriptions[] = json_encode($array[$index]['project_description']);
+
+            $_project_names[] = trim($project_names[$index], '"');
+            $_project_descriptions[] = trim($project_descriptions[$index], '"');
           }
 
         }
@@ -61,7 +64,11 @@
 
 <body>
 
-      <h5 class="text-center mt-5">Please enter the name and description of the best projects you've worked on.</h5>
+        <div id="signup-banner" class="bg-primary pt-2">
+          <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
+          <h5 class="text-white d-inline banner-text">Please enter the name and descrption of the projects you've worked on in the past.</h5>
+        </div>
+
       <div class="mt-5 ml-5 mr-5 project-container">
             <form id="initialForm" action="projects.php" method="POST">
               <div id="initial-input">
@@ -74,9 +81,9 @@
                       <textarea type="text" class="form-control project_description" name="project_description" id="project_description" placeholder="Project description..." rows="7"></textarea>
                   </div>
               </div>
-                  <button type="submit" name="submit-1" class="btn btn-primary">back</button>
-                  <button type="submit" name="submit-2" class="btn btn-primary">add project</button>
-                  <button type="submit" name="submit-3" class="btn btn-primary">next</button>
+                  <button type="submit" name="submit-1" class="btn btn-primary">Back</button>
+                  <button type="submit" name="submit-2" class="btn btn-primary">Add Project</button>
+                  <button type="submit" name="submit-3" class="btn btn-primary">Next</button>
             </form>
         </div>
 
@@ -93,9 +100,9 @@
 
             <?php for($index = 0;$index < count($array);$index++) { ?>
               <tr>
-                <th scope="row" class="text-center"><?php $index ?></th>
-                <td class="text-center"><?php echo $project_names[$index]?></td>
-                <td class="text-center"><?php echo $project_descriptions[$index]?></td>
+                <td class="text-center"><?php echo ($index+1)?></td>
+                <td class="text-center"><?php echo $_project_names[$index]?></td>
+                <td class="text-center"><?php echo $_project_descriptions[$index]?></td>
               </tr>
             <?php } ?>
 

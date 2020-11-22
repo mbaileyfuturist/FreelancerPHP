@@ -1,6 +1,3 @@
-html{
-    overflow:hidden;
-}
 
 a{
     text-decoration:none !important;
@@ -19,11 +16,6 @@ a{
     margin-top:5%;
     border: 1.5px solid black;
     border-radius: 0%;
-}
-
-.profile-description-form{
-    margin-left:25%;
-    margin-right:25%;
 }
 
 tr:hover{
@@ -117,6 +109,10 @@ tr:hover{
 }
 .banner-text{
     margin-left:18%;
+}
+
+.banner-text-profile-description{
+    margin-left:22%;
 }
 
 #signup-logo{

@@ -1,8 +1,6 @@
 <?php
   include 'header.php';
 
-  $errors = array('company_name' => '', 'address' => '', 'city' => '', 'state' => '', 'zip' => '', 'mission_statement' => '');
-
   if(isset($_POST['submit'])){
       
     //Database connection.
@@ -28,33 +26,11 @@
     $zip = mysqli_real_escape_string($conn, $_POST['zip']);
     $mission_statement = mysqli_real_escape_string($conn, $_POST['mission_statement']);      
 
-    //Form Validation for empty input.
-    if(empty($_POST['company_name'])){
-      $errors['company_name'] = 'Please enter a valid company name.';
-    }
-    if(empty($_POST['address'])){
-      $errors['address'] = 'Please enter a valid address.';
-    }
-    if(empty($_POST['city'])){
-      $errors['city'] = 'Please enter a valid city.';
-    }
-    if(empty($_POST['state'])){
-      $errors['state'] = 'Please enter a valid state.';
-    }
-    if(empty($_POST['zip'])){
-      $errors['zip'] = 'Please enter a valid zip.';
-    }
-    if(empty($_POST['mission_statement'])){
-      $errors['mission_statement'] = 'Please enter a valid mission statement.';
-    }
-
-    if(!$empty){
-      //SQL insert query
-      $sql = "INSERT INTO company_info(company_name, address, city, state, zip, mission_statement, id) VALUES('$company_name', '$address', '$city', '$state', '$zip', '$mission_statement', '$foreign_key')";
+    //SQL insert query
+    $sql = "INSERT INTO company_info(company_name, address, city, state, zip, mission_statement, id) VALUES('$company_name', '$address', '$city', '$state', '$zip', '$mission_statement', '$foreign_key')";
     
-      //Insert value.
-      mysqli_query($conn, $sql);
-    }
+    //Insert value.
+    mysqli_query($conn, $sql);
     
     //Need to add header method to redirect to add jobs.
     header("Location: addJobs.php");
@@ -63,30 +39,36 @@
 
     <body>
 
-        <div class="profile-pic mt-3">
-            <h2 class="mt-5 text-center text-white">profile pic</h2>
-        </div>
+      <div id="signup-banner" class="bg-primary pt-2 mb-5">
+        <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
+        <h5 class="text-white d-inline banner-text-profile-description">Almost done, just add a little bit more information about your company.</h5>
+      </div>
 
-        <div class="d-flex justify-content-center sign-up-container mt-5">
+      <h4 class="text-center mt-5">Full Name</h4>
+      <h4 class="text-center mt-3">Skill Type</h4>
 
-            <form action="companyInfo.php" method="POST">
+        <div class="d-flex justify-content-center mt-5">
+        <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">
+          <div class="card-body">
+          <h4 class="card-title signup-card-title text-dark"><strong>Company Information</strong></h4>
+          <form action="companyInfo.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label>Company Name</label>
+                    <label class="text-dark"><strong>Company Name</strong></label>
                     <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Company Address</label>
+                    <label class="text-dark"><strong>Company Address</strong></label>
                     <input type="text" class="form-control" id="address" name="address" placeholder="Company Address">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label>City</label>
+                    <label class="text-dark"><strong>City</strong></label>
                     <input type="text" class="form-control" id="city" name="city">
                     </div>
                     <div class="form-group col-md-4">
-                    <label>State</label>
+                    <label class="text-dark"><strong>State</strong></label>
                     <select id="state" name="state" class="form-control">
                         <option selected>Choose...</option>
                         <option>AZ</option>
@@ -95,19 +77,20 @@
                     </select>
                     </div>
                     <div class="form-group col-md-2">
-                    <label>Zip</label>
+                    <label class="text-dark"><strong>Zip</strong></label>
                     <input type="text" class="form-control" id="zip" name="zip">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label>Mission Statement</label>
-                    <textarea type="text" class="form-control" id="mission_statement" name="mission_statement" rows="7" style="width:100%;" placeholder="Mission Statement"></textarea>
+                    <label class="text-dark"><strong>Mission Statement</strong></label>
+                    <textarea type="text" class="form-control" id="mission_statement" name="mission_statement" rows="7" style="width:30rem;" placeholder="Mission Statement"></textarea>
                     </div>
                 </div>
                 <button type="submit" name="submit" class="btn btn-primary">Done</button>
             </form>   
-
+          </div>
+        </div>
       </div>
       
 <?php

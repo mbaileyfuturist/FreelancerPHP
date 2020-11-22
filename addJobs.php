@@ -66,7 +66,11 @@
 ?>
 
     <body>
-    <h5 class="text-center mt-5 mb-5">Please add the name and description of the jobs you are currently hiring for.</h5>
+
+        <div id="signup-banner" class="bg-primary pt-2">
+          <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
+          <h5 class="text-white d-inline banner-text">Please enter the name, descrption and pay for the jobs you are currently hiring for.</h5>
+        </div>
 
         <div class="mt-5 ml-5 mr-5 project-container">
         <form id="initialForm" action="addJobs.php" method="POST">
@@ -74,15 +78,15 @@
         <div id="initial-input">
             <div class="form-group">
                 <label>Job Name</label>
-                <input type="text" class="form-control" name="job_name" id="job_name" placeholder="job name">
+                <input type="text" class="form-control" name="job_name" id="job_name" placeholder="Job name">
             </div>
             <div class="form-group">
                 <label>Job Description</label>
-                <textarea type="text" class="form-control" name="job_description" id="job_description" placeholder="job description..." rows="7"></textarea>
+                <textarea type="text" class="form-control" name="job_description" id="job_description" placeholder="Job description..." rows="7"></textarea>
             </div>
             <div class="form-group">
                 <label>Hourly Rate</label>
-                <input type="text" class="form-control" name="hourly_rate" id="hourly_rate" placeholder="hourly rate"></input>
+                <input type="text" class="form-control" name="hourly_rate" id="hourly_rate" placeholder="Hourly Rate"></input>
             </div>
         </div>
 
@@ -106,10 +110,10 @@
 
             <?php for($index = 0;$index < count($array);$index++) { ?>
               <tr>
-                <th scope="row" class="text-center"><?php $index ?></th>
+                <td class="text-center"><?php echo ($index+1) ?></td>
                 <td class="text-center"><?php echo $_job_names[$index]?></td>
                 <td class="text-center"><?php echo $_job_descriptions[$index]?></td>
-                <td class="text-center"><?php echo $_job_hourly_rates[$index]?></td>
+                <td class="text-center"><?php echo "$" . $_job_hourly_rates[$index]?></td>
               </tr>
             <?php } ?>
 

@@ -47,6 +47,9 @@ $degree_types = array();
     for($index = 0; $index < count($array); $index++){
       $school_names[] = json_encode($array[$index]['school_name']);
       $degree_types[] = json_encode($array[$index]['degree_type']);
+
+      $_school_names[] = trim($school_names[$index], '"');
+      $_degree_types[] = trim($degree_types[$index], '"');
     }
 
   }
@@ -57,7 +60,10 @@ $degree_types = array();
 ?>
     <body>
         
-        <h5 class="text-center mt-5 mb-5">Please add the education you have relating to your skillset.</h5>
+        <div id="signup-banner" class="bg-primary pt-2">
+          <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
+          <h5 class="text-white d-inline banner-text">Please add the education you have relating to your skillset.</h5>
+        </div>
 
         <div class="mt-5 ml-5 mr-5 project-container">
          <form id="initialForm" action="education.php" method="POST">
@@ -69,7 +75,7 @@ $degree_types = array();
                 </div>
                 <div class="form-group">
                   <label for="formGroupExampleInput2">Degree Type</label>
-                  <input type="text" class="form-control" id="degree_type" name="degree_type" placeholder="Degree name">
+                  <input type="text" class="form-control" id="degree_type" name="degree_type" placeholder="Degree Name">
                 </div>
          </div> 
              <button type="submit" name="submit-1" class="btn btn-primary">Add Education</button>
@@ -90,9 +96,9 @@ $degree_types = array();
 
             <?php for($index = 0;$index < count($array);$index++) { ?>
               <tr>
-                <th scope="row" class="text-center"><?php $index ?></th>
-                <td class="text-center"><?php echo $school_names[$index]?></td>
-                <td class="text-center"><?php echo $degree_types[$index]?></td>
+                <td class="text-center"><?php echo ($index+1) ?></td>
+                <td class="text-center"><?php echo $_school_names[$index]?></td>
+                <td class="text-center"><?php echo $_degree_types[$index]?></td>
               </tr>
             <?php } ?>
 
