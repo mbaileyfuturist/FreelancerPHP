@@ -24,6 +24,9 @@
   $company_address = $company_info_associative_array['address'];
   $mission_statement = $company_info_associative_array['mission_statement'];
 
+  //Store this for later use in editActiveClientProfile if needed.
+  $_SESSION['company_name'] = $company_name;
+
   /**************************************************************************************************************/
 
   $company_jobs_query = "SELECT job_name, job_description, job_hourly_rate FROM jobs WHERE id = '$foreign_key'";

@@ -6,7 +6,7 @@
    unset($_SESSION["email"]);
    unset($_SESSION["password"]);
    
-   header('Refresh: 2; URL = login.php');
+   header('Refresh: 3; URL = login.php');
 ?>
 
 <!DOCTYPE html>

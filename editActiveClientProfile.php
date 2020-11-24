@@ -5,6 +5,7 @@
   session_start();
 
   $user_id = $_SESSION['id'];
+  $company_name = $_SESSION['company_name'];
 
   if(isset($_POST['submit-1'])){
     header("Location: clientProfile.php");
@@ -36,8 +37,13 @@
 
     <body>
 
+        <div id="signup-banner" class="bg-primary pt-2 mb-5">
+          <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
+        </div>
+
+        <h4 class="text-center mt-3"><?php echo $company_name ?></h4>
+
         <div class="d-flex justify-content-center sign-up-container mt-5">
-        <div class="d-flex justify-content-center mt-5">
         <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">
             <div class="card-body">
             <h4 class="card-title signup-card-title text-dark"><strong>Edit Profile</strong></h4>
@@ -82,8 +88,6 @@
             </form>
             </div>
         </div>
-        </div>
-
       </div>
       
 <?php

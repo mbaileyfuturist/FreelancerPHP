@@ -38,7 +38,7 @@
 ?>
     <body>
         
-    <div id="signup-banner" class="bg-primary pt-2 mb-5">
+      <div id="signup-banner" class="bg-primary pt-2 mb-5">
         <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
       </div>
 
