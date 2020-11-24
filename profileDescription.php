@@ -1,7 +1,11 @@
 <?php
   include 'header.php';
 
-  $errors = array('hourly_pay' => '', 'website' => '', 'bio' => '', 'services' => '');
+  session_start();
+
+  $first_name = $_SESSION['first_name'];
+  $last_name = $_SESSION['last_name'];
+  $skill = $_SESSION['skill'];
 
   if(isset($_POST['submit-1'])){
     header('Location:projects.php');
@@ -21,7 +25,7 @@
       //Fetch query as associative array.
       $lastrow = mysqli_fetch_assoc($result);
 
-      //Store foreign key into variable to insert into our table later.
+      //Grab the values stored within the last row.
       $foreign_key = $lastrow['id'];
 
       /************************************************************************************************ */
@@ -32,28 +36,15 @@
       $bio = mysqli_real_escape_string($conn, $_POST['bio']);
       $services = mysqli_real_escape_string($conn, $_POST['services']);
       
-
-      //Form Validation for empty input.
-      if(empty($_POST['hourly_pay'])){
-        $errors['hourly_pay'] = 'Please enter a valid hourly rate.';
-      }
-      if(empty($_POST['website'])){
-        $errors['website'] = 'Please enter a valid domain name';
-      }
-      if(empty($_POST['bio'])){
-        $errors['bio'] = 'Please enter a valid bio';
-      }
-      if(empty($_POST['services'])){
-        $errors['services'] = 'Please enter valid services';
-      }
-
-      if(!$empty){
-        //SQL insert query
-        $sql = "INSERT INTO profile_info(hourly_pay, website, bio, services, id) VALUES('$hourly_pay', '$website', '$bio', '$services', '$foreign_key')";
+      $_SESSION['bio'] = $bio;
+      $_SESSION['services'] = $services;
+      $_SESSION['hourly_pay'] = $hourly_pay;
       
-        //Insert value.
-        mysqli_query($conn, $sql);
-      }
+      //SQL insert query
+      $sql = "INSERT INTO profile_info(hourly_pay, website, bio, services, id) VALUES('$hourly_pay', '$website', '$bio', '$services', '$foreign_key')";
+      
+      //Insert value.
+      mysqli_query($conn, $sql);
      
       header("Location: FreelancersHomePage.php");
   }
@@ -65,8 +56,8 @@
         <h5 class="text-white d-inline banner-text-profile-description">Almost done, just add a little bit more information about yourself.</h5>
       </div>
 
-      <h4 class="text-center mt-5">Full Name</h4>
-      <h4 class="text-center mt-3">Skill Type</h4>
+      <h4 class="text-center mt-5"><?php echo $first_name . " " . $last_name ?></h4>
+      <h4 class="text-center mt-3"><?php echo $skill ?></h4>
 
       <div class="d-flex justify-content-center mt-5">
         <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">

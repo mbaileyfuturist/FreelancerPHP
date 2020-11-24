@@ -27,6 +27,7 @@
       $_SESSION['user_name'] = $work_hire_to_skill['user_name'];
       $_SESSION['work_hire'] = $work_hire_to_skill['work_hire'];
       $_SESSION['skill'] = $work_hire_to_skill['skill'];
+      $_SESSION['signup'] = false;
 
       //If work_hire = Work, then relocate to FreelancersHomePage.php
       if($_SESSION['work_hire'] == 'Work'){

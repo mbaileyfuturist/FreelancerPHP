@@ -1,7 +1,7 @@
 <?php
   include 'header.php';
 
-  $errors = array('first_name' => '', 'last_name' => '', 'email' => '', 'user_name' => '', 'password' => '');
+  session_start();
 
   if(isset($_POST['submit-1'])){
     header("Location: login.php");
@@ -22,30 +22,30 @@
       $work_hire = mysqli_real_escape_string($conn, $_POST['work_hire']);
       $skill = mysqli_real_escape_string($conn, $_POST['skills']);
 
-      //Form Validation for empty input.
-      if(empty($_POST['first_name'])){
-        $errors['first_name'] = 'Please enter a valid first name.';
-      }
-      if(empty($_POST['last_name'])){
-        $errors['last_name'] = 'Please enter a valid last name.';
-      }
-      if(empty($_POST['email'])){
-        $errors['email'] = 'Please enter a valid email address.';
-      }
-      if(empty($_POST['user_name'])){
-        $errors['user_name'] = 'Please enter a valid username.';
-      }
-      if(empty($_POST['password'])){
-        $errors['password'] = 'Please enter a valid password.';
-      }
+      $_SESSION['first_name'] = $first_name;
+      $_SESSION['last_name'] = $last_name;
+      $_SESSION['user_name'] = $user_name;
+      $_SESSION['email'] = $email;
+      $_SESSION['skill'] = $skill;
+      $_SESSION['signup'] = true;
 
-      if(!$empty){
-        //SQL insert query
-        $sql = "INSERT INTO users(first_name, last_name, email, user_name, password, work_hire, skill) VALUES('$first_name', '$last_name', '$email', '$user_name', '$password', '$work_hire', '$skill')";
+      //SQL insert query
+      $sql = "INSERT INTO users(first_name, last_name, email, user_name, password, work_hire, skill) VALUES('$first_name', '$last_name', '$email', '$user_name', '$password', '$work_hire', '$skill')";
       
-        //Insert value.
-        mysqli_query($conn, $sql);
-      }
+      //Insert value.
+      mysqli_query($conn, $sql);
+
+      //Grab the id from the last row of the users table.
+      $sql_select = "SELECT id FROM users ORDER BY id DESC LIMIT 1";
+      
+      //Make Query and get result.
+      $result = mysqli_query($conn, $idquery);
+
+      //Fetch query as associative array.
+      $lastrow = mysqli_fetch_assoc($result);
+
+      //Store the id into a session variable
+      $_SESSION['id'] = $lastrow['id'];
 
       if($work_hire == "Work"){
         header("Location: education.php");

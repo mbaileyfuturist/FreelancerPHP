@@ -7,8 +7,9 @@
     //Database connection.
     include('config/db_connect.php');
 
-    //Retreive the skill from the corresponding sessions variable.
+    //Retreive the skill and username from the corresponding sessions variable.
     $client_skill = $_SESSION['skill'];
+    $user_name = $_SESSION['user_name'];
 
     //Select all users where work_hire = Work and skill = skill of the client.
     $freelancers_name_query = "SELECT id, first_name, last_name, skill FROM users WHERE work_hire = 'Work' AND skill = '$client_skill'";
@@ -59,26 +60,21 @@
 ?>
     <body>
         
-      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-        <a class="navbar-brand" href="#">Username</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <nav id = "signup-banner" class="navbar navbar-expand-lg navbar-light bg-primary">
+        <h5 id="user-name" class="text-white"><?php echo "<strong>Welcome: " . " " . $user_name . "</strong>" ?></h5>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="clientProfile.php">Profile <span class="sr-only">(current)</span></a>
+              <h6><a class="nav-link ml-3" href="clientProfile.php"><strong>Profile</strong></a></h6>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="logout.php">Log Out</a>
+              <h6><a class="nav-link" href="logout.php"><strong>Log Out</strong></a></h6>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
+        <p id="home-logo" class="text-white d-inline">The Freelancer</p>
+
       </nav>
 
         <table class="table">
@@ -97,7 +93,7 @@
                 <td class="text-center"><?php echo $_freelancer_first_name[$index] . " " . $_freelancer_last_name[$index];?></td>
                 <td class="text-center" style="width:30%"><?php echo $_freelancers_bio[$index]; ?></td>
                 <td class="text-center"><?php echo '$' . $_freelancers_hourly_pay[$index]; ?></td>
-                <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
+                <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="select-<?php echo $index?>">Select</button></td>
               </tr>
             <?php } ?>
               
@@ -110,16 +106,16 @@
             
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header  bg-primary">
+                  <h4 id="full-name" class="text-white"></h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 id="full-name"></h4>
                 </div>
                 <div class="modal-body">
                   <p id="bio"></p>
                   <p id="service-description"></p>
                 </div>
-                <div class="modal-footer">
-                  <h4 id="hourly-rate"></h4>
+                <div class="modal-footer bg-primary d-flex justify-content-center">
+                  <h4 id="hourly-rate" class="text-white"></h4>
                 </div>
               </div>
               
@@ -203,9 +199,9 @@
                 var hourlyRateTag = document.getElementById("hourly-rate");
 
                 fullNameTag.innerHTML = firstName + " " + lastName;
-                serviceDescriptionTags.innerHTML = "Services: " + serviceDescription;
-                bioTag.innerHTML = "Bio: " + freelancersBio;
-                hourlyRateTag.innerHTML = "$" + hourlyRate;
+                serviceDescriptionTags.innerHTML = "<strong>Services: </strong>" + serviceDescription;
+                bioTag.innerHTML = "<strong>Bio:</strong> " + freelancersBio;
+                hourlyRateTag.innerHTML = "Pay: $" + hourlyRate + "/hr";
               });
 
         </script>

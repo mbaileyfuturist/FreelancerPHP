@@ -36,12 +36,11 @@
 
     <body>
 
-        <div class="profile-pic mt-3">
-            <h2 class="mt-5 text-center text-white">profile pic</h2>
-        </div>
-
         <div class="d-flex justify-content-center sign-up-container mt-5">
-
+        <div class="d-flex justify-content-center mt-5">
+        <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">
+            <div class="card-body">
+            <h4 class="card-title signup-card-title text-dark"><strong>Edit Profile</strong></h4>
             <form action="editActiveClientProfile.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -75,12 +74,15 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label>Mission Statement</label>
-                    <textarea type="text" class="form-control" id="mission_statement" name="mission_statement" rows="7" style="width:100%;" placeholder="Mission Statement"></textarea>
+                    <textarea type="text" class="form-control" id="mission_statement" name="mission_statement" rows="7" style="width:30rem;" placeholder="Mission Statement"></textarea>
                     </div>
                 </div>
                 <button type="submit" name="submit-1" class="btn btn-primary">Cancel</button>
                 <button type="submit" name="submit-2" class="btn btn-primary">Update</button>
-            </form>   
+            </form>
+            </div>
+        </div>
+        </div>
 
       </div>
       

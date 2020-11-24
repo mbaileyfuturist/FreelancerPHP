@@ -15,7 +15,10 @@
     //Fetch query as associative array.
     $lastrow = mysqli_fetch_assoc($result);
 
-    //Store foreign key into variable to insert into our table later.
+    //Grab the values stored within the last row.
+    $first_name = $lastrow['first-name'];
+    $last_name = $lastrow['last-name'];
+    $skill = $lastrow['skill'];
     $foreign_key = $lastrow['id'];
     
     //Protection from SQLInjection.
@@ -44,8 +47,8 @@
         <h5 class="text-white d-inline banner-text-profile-description">Almost done, just add a little bit more information about your company.</h5>
       </div>
 
-      <h4 class="text-center mt-5">Full Name</h4>
-      <h4 class="text-center mt-3">Skill Type</h4>
+      <h4 class="text-center mt-5"><?php echo $first_name . " " . $last_name ?></h4>
+      <h4 class="text-center mt-3"><?php echo $skill ?></h4>
 
         <div class="d-flex justify-content-center mt-5">
         <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">

@@ -119,3 +119,42 @@ tr:hover{
     font-family: 'Nerko One', cursive;
     font-size:35px;
 }
+#home-logo{
+    font-family: 'Nerko One', cursive;
+    font-size:35px;
+    padding-right:3% !important;
+}
+#logout-text{
+    font-family: 'Nerko One', cursive;
+    margin-top:20%;
+    font-size:75px;
+}
+.logout-cube{
+    width:100px;
+    height:100px;
+    position:absolute;
+}
+#cube8{
+    top:5%;
+    right:5%;
+}
+#cube9{
+    top:15%;
+    left:5%;
+}
+#cube10{
+    top:25%;
+    right:5%;
+}
+#cube11{
+    top:50%;
+    left:5%;
+}
+#cube12{
+    top:60%;
+    right:5%;
+}
+#cube13{
+    top:70%;
+    left:5%;
+}

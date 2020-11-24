@@ -3,8 +3,12 @@
 
   session_start();
 
-  //Grab the user id from the login screen.
+  //Grab the user info from the login screen.
   $user_id = $_SESSION['id'];
+
+  $first_name = $_SESSION['first_name'];
+  $last_name = $_SESSION['last_name'];
+  $skill = $_SESSION['skill'];
 
   if(isset($_POST['submit-1'])){
     header('Location:freelancerProfile.php');
@@ -34,13 +38,17 @@
 ?>
     <body>
         
-      <div class="profile-pic">
-        <h2 class="mt-5 text-center text-white">profile pic</h2>
+    <div id="signup-banner" class="bg-primary pt-2 mb-5">
+        <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
       </div>
 
-      <h4 class="text-center mt-3">Full Name</h4>
-      <h4 class="text-center mt-3">Skill Type</h4>
+      <h4 class="text-center mt-3"><?php echo $first_name . " " . $last_name ?></h4>
+      <h4 class="text-center mt-3"><?php echo $skill ?></h4>
 
+      <div class="d-flex justify-content-center mt-5">
+        <div class="card" style="width: 33rem;border-style:solid;border-width:2px;border-color:#0275d8;">
+            <div class="card-body">
+            <h4 class="card-title signup-card-title text-dark"><strong>Edit Profile</strong></h4>
         <form action="editActiveFreelancingProfile.php" method="POST" class="profile-description-form">
           <div class="form-group">
             <label for="hourlyPay">Hourly Pay</label>
@@ -65,6 +73,8 @@
           <button type="submit" name="submit-1" class="btn btn-primary mb-5">Cancel</button>
           <button type="submit" name="submit-2" class="btn btn-primary mb-5">Update</button>
         </form>
+        </div>
+      </div>
 <?php
   include 'footer.php';
 ?>

@@ -70,12 +70,14 @@
 
     <body>
     
-        <div class="profile-pic mt-3">
-            <h2 class="mt-5 text-center text-white">Compnay Logo</h2>
+          <div id="signup-banner" class="bg-primary pt-2">
+            <p id="signup-logo" class="text-white d-inline ml-3">The Freelancer</p>
           </div>
-    
-          <h4 class="text-center mt-3"><?php echo $company_name ?></h4>
-          <h4 class="text-center mt-2"><?php echo $company_address ?></h4>
+
+          <div>
+            <h4 class="text-center" style="margin-top:10%;"><?php echo $company_name ?></h4>
+            <h4 class="text-center mt-2"><?php echo $company_address ?></h4>
+          </div>
 
           <div class="mt-5 mb-5" style="width:50%;margin-left:25%;">
               <h5 class="text-center Company-description"><?php echo $mission_statement ?></h5>
@@ -98,7 +100,7 @@
                   <td class="text-center"><?php echo $_job_name[$index]; ?></td>
                   <td class="text-center"><?php echo $skill; ?></td>
                   <td class="text-center"><?php echo $_job_hourly_rate[$index]; ?></td>
-                  <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" id="select-<?php echo $index?>">Select</button></td>
+                  <td class="text-center"><button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="select-<?php echo $index?>">Select</button></td>
                 </tr>
             <?php }?>
              
@@ -111,15 +113,15 @@
             
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary">
+                  <h4 class="modal-title text-white">Modal Header</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Modal Header</h4>
                 </div>
                 <div class="modal-body">
                   <p id="job-description"></p>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer bg-primary d-flex justify-content-center">
+                  <button type="button" class="btn btn-default text-white" data-dismiss="modal"><h5>Close</h5></button>
                 </div>
               </div>
               
